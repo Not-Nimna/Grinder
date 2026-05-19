@@ -51,7 +51,7 @@ export function AppShell({
       const user = response.data.user;
 
       if (!user) {
-        router.replace("/signup");
+        router.replace("/");
         return;
       }
 
@@ -70,7 +70,7 @@ export function AppShell({
 
       if (!user) {
         setProfile({});
-        router.replace("/signup");
+        router.replace("/");
         return;
       }
 

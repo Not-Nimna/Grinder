@@ -28,10 +28,10 @@ export default function Home() {
 
         <div className="relative grid flex-1 place-items-center overflow-hidden px-5 py-16 sm:px-8 lg:min-h-[720px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(108,88,76,0.16)_1px,transparent_0)] bg-[length:18px_18px]" />
-          <div className="absolute left-6 top-10 hidden w-56 rotate-[-5deg] rounded-md border border-faded-copper-800 bg-tea-green-700 p-4 shadow-xl md:block">
+          <div className="animate-landing-float-one absolute left-6 top-10 hidden w-56 rounded-md border border-faded-copper-800 bg-tea-green-700 p-4 shadow-xl [--landing-float-rotate:-5deg] md:block">
             <p className="font-mono text-sm leading-6 text-ash-brown-100">Log each role, save proof, and make the job hunt measurable.</p>
           </div>
-          <div className="absolute right-8 top-12 hidden w-48 rotate-[8deg] rounded-lg border border-faded-copper-800 bg-vanilla-cream-900 p-4 shadow-xl lg:block">
+          <div className="animate-landing-float-two absolute right-8 top-12 hidden w-48 rounded-lg border border-faded-copper-800 bg-vanilla-cream-900 p-4 shadow-xl [--landing-float-rotate:8deg] lg:block">
             <p className="text-sm font-semibold">Current focus</p>
             <div className="mt-4 space-y-3 text-xs text-ash-brown-500">
               <div className="flex items-center justify-between">
@@ -44,7 +44,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-8 left-8 hidden w-64 rounded-lg border border-faded-copper-800 bg-vanilla-cream-900 p-4 shadow-xl lg:block">
+          <div className="animate-landing-float-three absolute bottom-8 left-8 hidden w-64 rounded-lg border border-faded-copper-800 bg-vanilla-cream-900 p-4 shadow-xl lg:block">
             <p className="text-sm font-semibold">Recent proof</p>
             <div className="mt-4 space-y-3">
               <div className="h-2 rounded-full bg-muted-olive-500" />
@@ -52,7 +52,7 @@ export default function Home() {
               <div className="h-2 w-2/3 rounded-full bg-faded-copper-700" />
             </div>
           </div>
-          <div className="absolute bottom-4 right-8 hidden w-72 rotate-[-4deg] overflow-hidden rounded-lg border border-faded-copper-800 bg-vanilla-cream-900 shadow-xl md:block">
+          <div className="animate-landing-float-four absolute bottom-4 right-8 hidden w-72 overflow-hidden rounded-lg border border-faded-copper-800 bg-vanilla-cream-900 shadow-xl [--landing-float-rotate:-4deg] md:block">
             <div className="relative h-44">
               <Image src="/login_image.svg" alt="Grinder app illustration" fill className="object-cover" sizes="288px" />
             </div>

@@ -122,6 +122,16 @@ body {
   }
 }
 
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: rotate(var(--landing-float-rotate, 0deg)) translateY(0);
+  }
+  50% {
+    transform: rotate(var(--landing-float-rotate, 0deg)) translateY(var(--landing-float-distance, -12px));
+  }
+}
+
 .animate-signup-image-slide {
   animation: signup-image-slide 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -136,4 +146,33 @@ body {
 
 .animate-auth-form-in {
   animation: auth-form-in 950ms ease both;
+}
+
+.animate-landing-float-one {
+  --landing-float-distance: -12px;
+  animation: landing-float 5.8s ease-in-out infinite;
+}
+
+.animate-landing-float-two {
+  --landing-float-distance: -10px;
+  animation: landing-float 6.4s ease-in-out 550ms infinite;
+}
+
+.animate-landing-float-three {
+  --landing-float-distance: -14px;
+  animation: landing-float 6.1s ease-in-out 900ms infinite;
+}
+
+.animate-landing-float-four {
+  --landing-float-distance: -11px;
+  animation: landing-float 6.8s ease-in-out 250ms infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-landing-float-one,
+  .animate-landing-float-two,
+  .animate-landing-float-three,
+  .animate-landing-float-four {
+    animation: none;
+  }
 }

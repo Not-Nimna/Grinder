@@ -256,7 +256,7 @@ export default function ProfilePage() {
       displayName: "Guest Member",
       email: "",
     });
-    router.replace("/login");
+    router.replace("/");
     router.refresh();
   }
 
