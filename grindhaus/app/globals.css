@@ -1,21 +1,71 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f0ead2;
+  --foreground: #231a13;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-vanilla-cream: #f0ead2;
+  --color-vanilla-cream-100: #433a16;
+  --color-vanilla-cream-200: #87752d;
+  --color-vanilla-cream-300: #c3ab4a;
+  --color-vanilla-cream-400: #d9ca8e;
+  --color-vanilla-cream-500: #f0ead2;
+  --color-vanilla-cream-600: #f3eeda;
+  --color-vanilla-cream-700: #f6f2e3;
+  --color-vanilla-cream-800: #f9f6ed;
+  --color-vanilla-cream-900: #fcfbf6;
+  --color-tea-green: #dde5b6;
+  --color-tea-green-100: #363d16;
+  --color-tea-green-200: #6d792c;
+  --color-tea-green-300: #a3b642;
+  --color-tea-green-400: #c1cf7b;
+  --color-tea-green-500: #dde5b6;
+  --color-tea-green-600: #e4eac6;
+  --color-tea-green-700: #ebf0d4;
+  --color-tea-green-800: #f2f5e3;
+  --color-tea-green-900: #f8faf1;
+  --color-muted-olive: #adc178;
+  --color-muted-olive-100: #242b14;
+  --color-muted-olive-200: #495527;
+  --color-muted-olive-300: #6d803b;
+  --color-muted-olive-400: #92aa4e;
+  --color-muted-olive-500: #adc178;
+  --color-muted-olive-600: #bdcd92;
+  --color-muted-olive-700: #ced9ad;
+  --color-muted-olive-800: #dee6c9;
+  --color-muted-olive-900: #eff2e4;
+  --color-faded-copper: #a98467;
+  --color-faded-copper-100: #231a13;
+  --color-faded-copper-200: #453427;
+  --color-faded-copper-300: #684e3a;
+  --color-faded-copper-400: #8a684e;
+  --color-faded-copper-500: #a98467;
+  --color-faded-copper-600: #ba9c84;
+  --color-faded-copper-700: #cbb4a3;
+  --color-faded-copper-800: #dccdc2;
+  --color-faded-copper-900: #eee6e0;
+  --color-ash-brown: #6c584c;
+  --color-ash-brown-100: #15120f;
+  --color-ash-brown-200: #2b231e;
+  --color-ash-brown-300: #40352e;
+  --color-ash-brown-400: #56473d;
+  --color-ash-brown-500: #6c584c;
+  --color-ash-brown-600: #927867;
+  --color-ash-brown-700: #ae998c;
+  --color-ash-brown-800: #c9bbb3;
+  --color-ash-brown-900: #e4ddd9;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #231a13;
+    --foreground: #f0ead2;
   }
 }
 
@@ -23,4 +73,67 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes signup-image-slide {
+  from {
+    opacity: 0.92;
+    transform: translateX(-42%) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes login-image-slide {
+  from {
+    opacity: 0.92;
+    transform: translateX(42%) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes auth-copy-out {
+  0%,
+  35% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-18px);
+    visibility: hidden;
+  }
+}
+
+@keyframes auth-form-in {
+  0%,
+  42% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-signup-image-slide {
+  animation: signup-image-slide 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-login-image-slide {
+  animation: login-image-slide 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-auth-copy-out {
+  animation: auth-copy-out 850ms ease both;
+}
+
+.animate-auth-form-in {
+  animation: auth-form-in 950ms ease both;
 }
