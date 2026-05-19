@@ -24,6 +24,7 @@ function getInitials(name?: string) {
 
 export default function ProfilePage() {
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [avatarUrl, setAvatarUrl] = useState("");
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("Guest Member");
@@ -40,7 +41,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const supabase = getSupabaseClient();
 
-    supabase.auth.getUser().then((response: { data: { user: User | null } }) => {
+    supabase.auth.getUser().then(async (response: { data: { user: User | null } }) => {
       const user = response.data.user;
 
       if (!user) {
@@ -48,9 +49,13 @@ export default function ProfilePage() {
       }
 
       const metadata = user.user_metadata;
-      const name = metadata?.custom_display_name || metadata?.display_name || metadata?.full_name || metadata?.name || user.email || "Member";
-      const avatar = metadata?.custom_avatar_url || metadata?.avatar_url || metadata?.picture || "";
+      const fallbackName = metadata?.custom_display_name || metadata?.display_name || metadata?.full_name || metadata?.name || user.email || "Member";
+      const fallbackAvatar = metadata?.custom_avatar_url || metadata?.avatar_url || metadata?.picture || "";
+      const { data: publicProfile } = await supabase.from("profiles").select("username,avatar_url").eq("id", user.id).maybeSingle();
+      const name = publicProfile?.username || fallbackName;
+      const avatar = publicProfile?.avatar_url || fallbackAvatar;
 
+      setCurrentUser(user);
       setIsSignedIn(true);
       setEmail(user.email || "");
       setDisplayName(name);
@@ -109,13 +114,15 @@ export default function ProfilePage() {
 
     try {
       const supabase = getSupabaseClient();
+      const nextDisplayName = displayName.trim() || "Member";
+      const nextAvatarUrl = avatarUrl.trim();
       const { error } = await supabase.auth.updateUser({
         email,
         data: {
-          avatar_url: avatarUrl.trim(),
-          custom_avatar_url: avatarUrl.trim(),
-          custom_display_name: displayName.trim(),
-          display_name: displayName.trim(),
+          avatar_url: nextAvatarUrl,
+          custom_avatar_url: nextAvatarUrl,
+          custom_display_name: nextDisplayName,
+          display_name: nextDisplayName,
         },
       });
 
@@ -124,10 +131,25 @@ export default function ProfilePage() {
         return;
       }
 
+      if (currentUser) {
+        const { error: profileError } = await supabase.from("profiles").upsert({
+          id: currentUser.id,
+          username: nextDisplayName,
+          avatar_url: nextAvatarUrl,
+        });
+
+        if (profileError) {
+          setMessage(profileError.message);
+          return;
+        }
+      }
+
+      setDisplayName(nextDisplayName);
+      setAvatarUrl(nextAvatarUrl);
       setMessage("Profile updated.");
       setSavedProfile({
-        avatarUrl: avatarUrl.trim(),
-        displayName: displayName.trim(),
+        avatarUrl: nextAvatarUrl,
+        displayName: nextDisplayName,
         email,
       });
     } catch (error) {
@@ -189,6 +211,19 @@ export default function ProfilePage() {
         return;
       }
 
+      if (currentUser) {
+        const { error: profileError } = await supabase.from("profiles").upsert({
+          id: currentUser.id,
+          username: displayName.trim() || "Member",
+          avatar_url: result.url,
+        });
+
+        if (profileError) {
+          setMessage(profileError.message);
+          return;
+        }
+      }
+
       setAvatarUrl(result.url);
       setMessage("Profile photo updated.");
       setSavedProfile((current) => ({
@@ -212,6 +247,7 @@ export default function ProfilePage() {
     const supabase = getSupabaseClient();
     await supabase.auth.signOut({ scope: "global" });
     setIsSignedIn(false);
+    setCurrentUser(null);
     setAvatarUrl("");
     setEmail("");
     setDisplayName("Guest Member");

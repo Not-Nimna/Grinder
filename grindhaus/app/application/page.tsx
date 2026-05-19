@@ -38,16 +38,10 @@ function createBlankApplication(userId: string): Application {
   };
 }
 
-function getUsername(user: User) {
+function getDisplayName(user: User) {
   const metadata = user.user_metadata;
   const fromMetadata = metadata?.custom_display_name || metadata?.display_name || metadata?.full_name || metadata?.name;
-  const base = String(fromMetadata || user.email?.split("@")[0] || "member")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9_]+/g, "_")
-    .replace(/^_+|_+$/g, "");
-
-  return `${base || "member"}_${user.id.slice(0, 8)}`;
+  return String(fromMetadata || user.email?.split("@")[0] || "Member").trim() || "Member";
 }
 
 export default function ApplicationPage() {
@@ -183,11 +177,11 @@ export default function ApplicationPage() {
     }
 
     const supabase = getSupabaseClient();
-    const username = getUsername(user);
+    const displayName = getDisplayName(user);
     const avatarUrl = user.user_metadata?.custom_avatar_url || user.user_metadata?.avatar_url || user.user_metadata?.picture || "";
     const { error } = await supabase.from("profiles").upsert({
       id: user.id,
-      username,
+      username: displayName,
       avatar_url: avatarUrl,
     });
 

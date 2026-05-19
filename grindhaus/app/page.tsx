@@ -66,10 +66,10 @@ export default function Home() {
               <span className="rounded-full bg-faded-copper-500" />
             </div>
             <h1 className="text-[clamp(3rem,7vw,6.75rem)] font-semibold leading-[0.95] tracking-normal">
-              Track applications
-              <span className="block text-ash-brown-700">and prove progress</span>
+              For Hustlers
+              <span className="block text-ash-brown-700">Chasing the Bag</span>
             </h1>
-            <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-ash-brown-500 sm:text-lg">Grinder helps members log job applications, upload proof screenshots, update outcomes, and rank progress from real application activity.</p>
+            <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-ash-brown-500 sm:text-lg">Built for the true grinders. The hustlers. The chasers. Those dedicated to the cause, Those who dont stop until the job is done. </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link className="w-full rounded-md bg-muted-olive-300 px-6 py-3 text-sm font-semibold text-vanilla-cream-900 shadow-sm transition hover:bg-muted-olive-200 sm:w-auto" href="/signup">
                 Get started
